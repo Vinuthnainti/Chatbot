@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>No Hunger Chatbot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #008080;
+      --primary-hover: #006666;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --role-donor: linear-gradient(120deg, #74ebd5, #ACB6E5);
+      --role-ngo: linear-gradient(120deg, #e0eafc, #cfdef3);
+      --role-receiver: linear-gradient(120deg, #f0f4c3, #e6ee9c);
+      --text-main: #2c3e50;
+      --text-secondary: #555;
+      --transition-speed: 0.3s;
+      --shadow-card: rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      transition: all var(--transition-speed) ease;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: "Poppins", sans-serif;
+      background: url('https://static.vecteezy.com/system/resources/previews/044/426/797/large_2x/distributing-food-to-help-the-poor-in-society-sharing-food-to-the-hungry-food-donation-concept-free-photo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: -1;
+    }
+
+    .container {
+      background: var(--card-bg);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px var(--shadow-card);
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      display: none;
+    }
+
+    .container.active {
+      display: block;
+      animation: fadeInUp 0.5s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .input-field {
+      position: relative;
+      margin: 16px 0;
+    }
+
+    .input-field input {
+      width: 100%;
+      padding: 14px;
+      border: 1.5px solid #d0d0d0;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #f9f9f9;
+    }
+
+    .input-field input:focus {
+      border-color: var(--primary);
+      background: #fff;
+      outline: none;
+    }
+
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+    }
+
+    .link {
+      color: var(--primary);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .roles {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .role-card {
+      padding: 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .role-card.donor { background: var(--role-donor); }
+    .role-card.ngo { background: var(--role-ngo); }
+    .role-card.receiver { background: var(--role-receiver); }
+
+    #chatOutput {
+      text-align: left;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-top: 20px;
+      max-height: 250px;
+      overflow-y: auto;
+      background: #fafafa;
+      border-radius: 8px;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    .msg { margin: 6px 0; }
+    .msg.user { color: var(--primary); }
+    .msg.bot { color: var(--text-secondary); }
+
+  </style>
+</head>
+<body>
+
+  <!-- Start Page -->
+  <div class="container active" id="startPage">
+    <h1>🍲 No Hunger Chatbot</h1>
+    <p>Connecting food donors, NGOs, and receivers — helping end hunger together.</p>
+    <button id="startBtn">Get Started</button>
+  </div>
+
+  <!-- Login Page -->
+  <div class="container" id="loginPage">
+    <h1>Login</h1>
+    <div class="input-field">
+      <input type="email" id="loginEmail" placeholder="Email" />
+    </div>
+    <div class="input-field">
+      <input type="password" id="loginPassword" placeholder="Password" />
+    </div>
+    <button id="loginBtn">Login</button>
+    <p>Don't have an account? <span class="link" id="toSignup">Sign Up</span></p>
+  </div>
+
+  <!-- Signup Page -->
+  <div class="container" id="signupPage">
+    <h1>Sign Up</h1>
+    <div class="input-field">
+      <input type="text" id="name" placeholder="Full Name" />
+    </div>
+    <div class="input-field">
+      <input type="email" id="signupEmail" placeholder="Email" />
+    </div>
+    <div class="input-field">
+      <input type="password" id="signupPassword" placeholder="Password" />
+    </div>
+    <button id="signupBtn">Register</button>
+    <p>Already have an account? <span class="link" id="toLogin">Login</span></p>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="container" id="dashboardPage">
+    <h1>🎉 Welcome!</h1>
+    <p>Select your role:</p>
+    <div class="roles">
+      <div class="role-card donor" data-role="Donor 🍱">Donor 🍱</div>
+      <div class="role-card ngo" data-role="NGO 👐">NGO 👐</div>
+      <div class="role-card receiver" data-role="Receiver 🤝">Receiver 🤝</div>
+    </div>
+  </div>
+
+  <!-- Chatbot Page -->
+  <div class="container" id="chatbotPage">
+    <h1>💬 No Hunger Chatbot</h1>
+    <p id="roleMessage"></p>
+    <div style="display:flex; gap:8px;">
+      <input type="text" id="chatInput" placeholder="Type your message..." style="flex:1; padding:10px; border-radius:8px; border:1px solid #ccc;" />
+      <button id="sendBtn">Send</button>
+    </div>
+    <div id="chatOutput"></div>
+  </div>
+
+  <script>
+    const API_BASE_URL = "http://localhost:4000/api"; // backend placeholder
+    const state = { role: null, userName: null };
+
+    function showPage(id) {
+      document.querySelectorAll(".container").forEach(c => c.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    document.getElementById("startBtn").onclick = () => showPage("loginPage");
+    document.getElementById("toSignup").onclick = () => showPage("signupPage");
+    document.getElementById("toLogin").onclick = () => showPage("loginPage");
+
+    document.getElementById("loginBtn").onclick = () => showPage("dashboardPage");
+
+    document.getElementById("signupBtn").onclick = () => {
+      alert("Registration successful! Please login.");
+      showPage("loginPage");
+    };
+
+    document.querySelectorAll(".role-card").forEach(card => {
+      card.onclick = () => {
+        state.role = card.getAttribute("data-role");
+        document.getElementById("roleMessage").textContent = `You are logged in as: ${state.role}`;
+        showPage("chatbotPage");
+        appendMessage(`Bot: Welcome, ${state.role}! How can I assist you today?`, "bot");
+      };
+    });
+
+    function appendMessage(text, sender) {
+      const chatOutput = document.getElementById("chatOutput");
+      const p = document.createElement("p");
+      p.className = `msg ${sender}`;
+      p.textContent = text;
+      chatOutput.appendChild(p);
+      chatOutput.scrollTop = chatOutput.scrollHeight;
+    }
+
+    document.getElementById("sendBtn").onclick = () => {
+      const input = document.getElementById("chatInput");
+      const message = input.value.trim();
+      if (!message) return;
+      appendMessage(`You: ${message}`, "user");
+      input.value = "";
+      setTimeout(() => appendMessage("Bot: Thank you for your message!", "bot"), 500);
+    };
+  </script>
+</body>
+</html>
