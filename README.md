@@ -1,14 +1,30 @@
 🍲 No Hunger Chatbot
 
-No Hunger Chatbot is an AI-powered conversational assistant built to help fight hunger by connecting people in need of food with donors, NGOs, and food suppliers.
-It provides a simple and accessible way for users to request or offer food, locate nearby food centers, and spread awareness about food waste reduction.
+No Hunger Chatbot is a social-impact web project built to help reduce hunger and minimize food waste.
+It connects food donors, receivers, and NGOs through a simple chatbot interface that allows users to donate or request food easily.
+
+The project uses a Node.js + Express.js backend and a simple frontend interface to make the process of food donation fast, friendly, and accessible.
 
 🚀 Features
-🤖 Chat-based interface: Users can interact easily through a friendly chatbot conversation.
-🗺️ Location-based assistance: Suggests nearby NGOs or food banks based on user location.
-🍛 Food donation requests: Allows donors to register leftover or surplus food.
-🧍‍♂️ Food request registration: Lets individuals in need request help from local centers.
 
-🌍 Impact
-The goal of this chatbot is to bridge the gap between food suppliers and hunger — ensuring no food goes to waste and no one sleeps hungry.
-By using conversational AI, we make social help more accessible and human-like.
+🤖 Chat-based Interaction: Users can chat to donate or request food seamlessly.
+
+🧍 Role Selection: Supports both donors and receivers.
+
+🍛 Food Donation Requests: Donors can submit food details and locations.
+
+📍 Location Matching: Connects users within the same or nearby areas.
+
+🏢 NGO Integration: Can be linked to NGOs for efficient food distribution.
+
+
+🛠️ Tech Stack
+Category	Technologies Used
+Frontend	HTML, CSS, JavaScript
+Backend	Node.js, Express.js
+Version Control	Git & GitHub
+
+ Mission
+
+“Our mission is to make sure no one sleeps hungry while food goes to waste.”
+Through technology and compassion, we aim to connect food surplus with food scarcity and make a real-world impact.
